@@ -20,7 +20,7 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                pyhton3 py1.py
+                python3 py1.py
                 '''
             }
         }
