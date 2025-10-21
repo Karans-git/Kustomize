@@ -1,0 +1,32 @@
+resources:
+- ../../base/app
+
+namespace: sqa
+
+nameSuffix:
+  -sqa
+
+configMapGenerator:
+- name: backend-env
+  env: config.properties
+
+patches:
+  - path: pv-mod.yaml
+    target:
+      kind: PersistentVolume
+      name: mysql-pv             # cluster-scoped: base name works fine
+  # - path: ingress-mod.yaml
+  #   target:
+  #     kind: Ingress
+  #     name: nginx-ingress-dev    # namespaced: must match post-transform name
+patchesJson6902:
+  - target:
+      version: v1
+      kind: Ingress
+      name: nginx-ingress-sqa
+    path: ingress-mod.json
+  - target:
+      version: v1
+      kind: Deployment
+      name: nginx-deployment-sqa    # 👈 match final name after suffix
+    path: app-mod.json

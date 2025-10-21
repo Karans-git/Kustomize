@@ -1,0 +1,27 @@
+resources:
+- ../../base/app
+
+namespace: dev
+
+nameSuffix:
+  -dev
+
+configMapGenerator:
+- name: backend-env 
+  env: config.properties
+
+patches:
+  - path: pv-mod.yaml
+    target:
+      kind: PersistentVolume
+      name: mysql-pv             # cluster-scoped: base name works fine
+  # - path: ingress-mod.yaml
+  #   target:
+  #     kind: Ingress
+  #     name: nginx-ingress-dev    # namespaced: must match post-transform name
+patchesJson6902:
+  - target:
+      version: v1
+      kind: Ingress
+      name: nginx-ingress-dev
+    path: ingress-mod.json
