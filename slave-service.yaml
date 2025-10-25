@@ -11,5 +11,5 @@ spec:
   ports:
     - port: 50000
       targetPort: 50000
-      nodePort: 30500      # 👈 You can change this (range: 30000–32767)
+      nodePort: 50000      # 👈 You can change this (range: 30000–32767)
       name: agent
