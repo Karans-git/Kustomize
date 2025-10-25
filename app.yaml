@@ -24,8 +24,19 @@ spec:
             - name: jenkins-home
               mountPath: /var/jenkins_home
           env:
+            # Disable the setup wizard for faster boot
             - name: JAVA_OPTS
               value: "-Djenkins.install.runSetupWizard=false"
+
+            # 👇 Force Jenkins to always listen on these ports
+            - name: JENKINS_PORT
+              value: "8080"
+            - name: JENKINS_SLAVE_AGENT_PORT
+              value: "50000"
+
+            # 👇 Automatically advertise the correct external URL
+            - name: JENKINS_OPTS
+              value: "--prefix=/ --httpPort=8080 --httpsPort=-1 --argumentsRealm.passwd.admin=admin --argumentsRealm.roles.user=admin --argumentsRealm.roles.admin=admin --jenkinsUrl=https://jenkins.nycx.in/"
       volumes:
         - name: jenkins-home
           persistentVolumeClaim:
