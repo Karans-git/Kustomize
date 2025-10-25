@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: jenkins
-          image: jenkins/jenkins:lts-jdk17
+          image: jenkins/jenkins:latest
           ports:
             - containerPort: 8080       # Web UI
             - containerPort: 50000      # Agent (slave) connection
